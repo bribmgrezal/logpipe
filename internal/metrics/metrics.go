@@ -1,6 +1,9 @@
 package metrics
 
-import "sync/atomic"
+import (
+	"fmt"
+	"sync/atomic"
+)
 
 // Counter tracks pipeline processing statistics.
 type Counter struct {
@@ -31,6 +34,12 @@ type Snapshot struct {
 	Passed   int64
 	Filtered int64
 	Errors   int64
+}
+
+// String returns a human-readable summary of the snapshot.
+func (s Snapshot) String() string {
+	return fmt.Sprintf("received=%d passed=%d filtered=%d errors=%d",
+		s.Received, s.Passed, s.Filtered, s.Errors)
 }
 
 // Snapshot captures current counter values.
