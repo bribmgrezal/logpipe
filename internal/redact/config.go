@@ -23,5 +23,10 @@ func LoadConfig(path string) (*Redactor, error) {
 	if err := json.NewDecoder(f).Decode(&cfg); err != nil {
 		return nil, fmt.Errorf("redact: decode config: %w", err)
 	}
+
+	if len(cfg.Rules) == 0 {
+		return nil, fmt.Errorf("redact: config %q contains no rules", path)
+	}
+
 	return New(cfg.Rules), nil
 }
