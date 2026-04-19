@@ -46,6 +46,9 @@ func TestTailer_EmitsNewLines(t *testing.T) {
 	if got[0] != `{"level":"info"}` {
 		t.Errorf("unexpected line: %s", got[0])
 	}
+	if got[1] != `{"level":"error"}` {
+		t.Errorf("unexpected line: %s", got[1])
+	}
 }
 
 func TestTailer_InvalidPath(t *testing.T) {
