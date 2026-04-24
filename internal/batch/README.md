@@ -13,6 +13,15 @@ defer b.Stop()
 b.Write([]byte(`{"level":"info","msg":"hello"}`))
 ```
 
+## Flushing behaviour
+
+A flush is triggered by whichever condition occurs first:
+
+- **Size**: the number of buffered entries reaches the configured `size` limit.
+- **Interval**: the configured `interval` elapses since the last flush.
+
+Calling `Stop()` performs a final flush of any remaining entries before returning.
+
 ## Config file (JSON)
 
 ```json
@@ -23,6 +32,6 @@ b.Write([]byte(`{"level":"info","msg":"hello"}`))
 ```
 
 | Field      | Type   | Default | Description                        |
-|------------|--------|---------|------------------------------------|
+|------------|--------|---------|------------------------------------||
 | `size`     | int    | 100     | Max entries before forced flush    |
 | `interval` | string | `"5s"`  | Max time between flushes           |
