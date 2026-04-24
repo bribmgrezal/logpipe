@@ -43,6 +43,14 @@ func TestLoadConfig_MissingField(t *testing.T) {
 	}
 }
 
+func TestLoadConfig_InvalidJSON(t *testing.T) {
+	p := writeTemp(t, `{not valid json}`)
+	_, err := LoadConfig(p)
+	if err == nil {
+		t.Fatal("expected error for invalid JSON")
+	}
+}
+
 func TestNewFromConfig_InvalidInterval(t *testing.T) {
 	c := &Config{Field: "level", Interval: "bad"}
 	_, err := NewFromConfig(c, func([]byte) error { return nil })
