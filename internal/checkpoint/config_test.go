@@ -64,3 +64,11 @@ func TestNewFromConfig_Valid(t *testing.T) {
 		t.Error("expected non-nil checkpoint")
 	}
 }
+
+func TestNewFromConfig_EmptyPath(t *testing.T) {
+	cfg := &Config{Path: ""}
+	_, err := NewFromConfig(cfg)
+	if err == nil {
+		t.Error("expected error for empty path in config")
+	}
+}
